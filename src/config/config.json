@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "todo_user",
+    "password": "password",
     "database": "jig_todo_db",
-    "host": "127.0.0.1",
+    "host": "mysql",
     "dialect": "mysql"
   },
   "test": {

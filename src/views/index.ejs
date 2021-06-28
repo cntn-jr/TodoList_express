@@ -7,5 +7,14 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <table>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.age %></td>
+        </tr>
+      <% }); %>
+    </table>
   </body>
 </html>
