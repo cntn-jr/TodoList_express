@@ -9,3 +9,11 @@ HTML/CSS/JavaScriptを使ったWeｂアプリの制作
   - パスワード
   - 年齢
   - メールアドレス
+
+  
+## プラグイン
+- ejs
+- express-session
+- express-validator
+- passport
+- passport-local
