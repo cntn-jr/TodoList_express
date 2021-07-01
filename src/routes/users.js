@@ -4,17 +4,10 @@ const db = require('../models');
 const session = require('express-session');
 
 const authMiddleware = (req, res, next) => {
-  console.log(req.user);
   if(req.isAuthenticated()) { // ログインしてるかチェック
-
-    console.log('logined')
-
     next();
-
   } else {
-
     res.redirect(302, '/login');
-
   }
 };
 

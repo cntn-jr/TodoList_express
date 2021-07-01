@@ -28,22 +28,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use(session({
   secret: 'secret',
   resave: true,
   saveUninitialized: true,
 }));
 app.use(passport.initialize())
-// Session
 app.use(passport.session({
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
 }));
-
-
-
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -94,20 +89,13 @@ passport.use(new LocalStrategy({
     }
   })
   .then(user => {
-
     if(user && bcrypt.compareSync(password, user.password)) {
-
       return done(null, user);  // ログイン成功
-
     }
-
     throw new Error();
-
   })
   .catch(error => { // エラー処理
-
     return done(null, false, { message: '認証情報と一致するレコードがありません。' });
-
   });
 }));
 
