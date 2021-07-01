@@ -6,8 +6,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const homeRouter = require('./routes/home');
+const signupRouter = require('./routes/signup');
 
 const passport = require('passport');
 const bcrypt = require('bcrypt');
@@ -40,8 +40,8 @@ app.use(passport.session({
     saveUninitialized: true,
 }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/home', homeRouter);
+app.use('/signup', signupRouter)
 
 app.get('/login', (req, res, next) => {
   const user = '';
@@ -57,7 +57,7 @@ app.post('/login',
       session: true,
     }),
     (req, res)=>{
-      return res.redirect('/users');
+      return res.redirect('/home');
     }
 );
 

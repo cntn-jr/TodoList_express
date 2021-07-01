@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models');
-const session = require('express-session');
 
 const authMiddleware = (req, res, next) => {
   if(req.isAuthenticated()) { // ログインしてるかチェック
@@ -18,7 +17,7 @@ router.get('/', authMiddleware, function(req, res, next) {
       title: 'test',
       users: users,
     }
-    res.render('index', data);
+    res.render('home', data);
   })
 });
 
