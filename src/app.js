@@ -40,6 +40,7 @@ app.use(passport.session({
     saveUninitialized: true,
 }));
 
+app.use('/', homeRouter);
 app.use('/home', homeRouter);
 app.use('/signup', signupRouter)
 
@@ -57,9 +58,14 @@ app.post('/login',
       session: true,
     }),
     (req, res)=>{
-      return res.redirect('/home');
+      res.redirect('/home');
     }
 );
+
+app.get('/logout', (req, res, next)=>{
+  req.logOut();
+  res.redirect('login');
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
