@@ -10,7 +10,10 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/home">TodoList</a>
-        <a class='text-left text-secondary' href='/logout'>Log out</a>
+        <div class='text-center'>
+            <span class='mx-3'><%= user_name %></span>
+            <a class='text-secondary mx-3' href='/logout'>Log out</a>
+        </div>
     </nav>
     <div class="container mt-4" role="main">
         <p class="alert alert-success">Success Login!!!!</p>

@@ -12,13 +12,11 @@ const authMiddleware = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', authMiddleware, function(req, res, next) {
-  db.Users.findAll().then(users=>{
     const data = {
       title: 'test',
-      users: users,
+      user_name: req.user.name,
     }
     res.render('home', data);
-  })
 });
 
 module.exports = router;
