@@ -6,6 +6,7 @@ module.exports = {
     const now = new Date();
     return queryInterface.bulkInsert('Users', [
       {
+        id: 1,
         name: 'test1',
         password: bcrypt.hashSync('password', bcrypt.genSaltSync(8)),
         age: 20,
@@ -13,6 +14,7 @@ module.exports = {
         createdAt: now, updatedAt: now
       },
       {
+        id: 2,
         name: 'test2',
         password: bcrypt.hashSync('password', bcrypt.genSaltSync(8)),
         age: 38,
@@ -20,6 +22,7 @@ module.exports = {
         createdAt: now, updatedAt: now
       },
       {
+        id: 3,
         name: 'test3',
         password: bcrypt.hashSync('password', bcrypt.genSaltSync(8)),
         age: 15,
