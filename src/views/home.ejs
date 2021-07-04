@@ -16,7 +16,23 @@
         </div>
     </nav>
     <div class="container mt-4" role="main">
-        <p class="alert alert-success">Success Login!!!!</p>
+        <table class='table mt-5'>
+            <thead class='thead-light'>
+                <tr>
+                    <th>タイトル</th><th>プライオリティ</th><th>期日</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i in todos){ %>
+                    <tr>
+                        <% let todo = todos[i] %>
+                        <td><%= todo.title %></td>
+                        <td><%= todo.priority %></td>
+                        <td><%= todoDueList[i] %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
 
 </body>

@@ -12,11 +12,20 @@ const authMiddleware = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', authMiddleware, function(req, res, next) {
-    const data = {
-      title: 'test',
-      user_name: req.user.name,
-    }
-    res.render('home', data);
+    db.Todo.findAll({where:{user_id:req.user.id}}).then(todos => {
+      const todoDueList = [];
+      for(let i in todos){
+        let dueDate = todos[i].dueDate;
+        todoDueList[i] = dueDate.getFullYear() + '年' + dueDate.getMonth() + '月' + dueDate.getDate() + '日';
+      }
+      const data = {
+        title: 'test',
+        user_name: req.user.name,
+        todos: todos,
+        todoDueList: todoDueList,
+      }
+      res.render('home', data);
+    })
 });
 
 module.exports = router;
