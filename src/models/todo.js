@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     memo: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
-    priority: DataTypes.STRING
+    priority: DataTypes.STRING,
+    dueDate: DataTypes.DATE,
   }, {
     sequelize,
     modelName: 'Todo',
