@@ -40,7 +40,6 @@ app.use(passport.session({
     saveUninitialized: true,
 }));
 
-app.use('/', homeRouter);
 app.use('/signup', signupRouter)
 app.use('/todo', todoRouter);
 
