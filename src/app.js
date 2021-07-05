@@ -40,6 +40,8 @@ app.use(passport.session({
     saveUninitialized: true,
 }));
 
+app.use(express.static('public'));
+
 app.use('/signup', signupRouter)
 app.use('/todo', todoRouter);
 

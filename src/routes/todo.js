@@ -94,4 +94,12 @@ router.post('/:id/update', (req, res, next) => {
     })
 });
 
+router.post('/:id/delete', (req, res, next) => {
+    db.Todo.findByPk(req.params.id).then(todo => {
+        todo.destroy().then(() => {
+            res.redirect('/todo');
+        })
+    })
+})
+
 module.exports = router;
