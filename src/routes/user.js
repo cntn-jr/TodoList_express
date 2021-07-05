@@ -18,13 +18,17 @@ const authMiddleware = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', authMiddleware, (req, res, next) => {
+    req.session.errorAddTodo = null;
+    req.session.errorUpdateTodo = null;
+    req.session.errorPass = null;
+    req.session.successPass = null;
     db.Users.findByPk(req.user.id).then( user => {
         req.user = user;
         const data = {
             title: 'test',
             user: user,
             user_name: req.user.name,
-            errorMessage: req.session.error,
+            errorMessage: req.session.errorUpdateUser,
         }
         res.render('user/index', data);
     });
@@ -36,21 +40,24 @@ router.post('/update', authMiddleware, (req, res, next) => {
         user.email = req.body.email,
         user.age = req.body.age,
         user.save().then( () => {
-            req.session.error = null;
+            req.session.errorUpdateUser = null;
             res.redirect('/user');
         }).catch(err=>{
-            req.session.error = err;
+            req.session.errorUpdateUser = err;
             res.redirect('/user');
         })
     });
 })
 
 router.get('/changePass', authMiddleware, (req, res, next) => {
+    req.session.errorAddTodo = null;
+    req.session.errorUpdateTodo = null;
+    req.session.errorUpdateUser = null;
     const data = {
         title: 'test',
         user_name: req.user.name,
-        errorMessage: req.session.error,
-        successMessage: req.session.success,
+        errorMessage: req.session.errorPass,
+        successMessage: req.session.successPass,
     }
     res.render('user/changePass', data);
 })
@@ -58,19 +65,19 @@ router.get('/changePass', authMiddleware, (req, res, next) => {
 router.post('/changePass/update', authMiddleware, (req, res, next) => {
     db.Users.findByPk(req.user.id).then( user => {
         if(!bcrypt.compareSync(req.body.passCurrent, user.password)){
-            req.session.success = null
-            req.session.error = 'パスワードを正確に入力してください'
+            req.session.successPass = null
+            req.session.errorPass = 'パスワードを正確に入力してください'
             res.redirect('/user/changePass');
         }
         if(req.body.passNew !== req.body.passConfirm || req.body.passNew === '' || req.body.passConfirm === ''){
-            req.session.success = null
-            req.session.error = 'パスワードを正確に入力してください'
+            req.session.successPass = null
+            req.session.errorPass = 'パスワードを正確に入力してください'
             res.redirect('/user/changePass');
         }
         user.password = bcrypt.hashSync(req.body.passNew, bcrypt.genSaltSync(8));
         user.save().then( () => {
-            req.session.error = null
-            req.session.success = 'パスワードを変更しました'
+            req.session.errorPass = null
+            req.session.successPass = 'パスワードを変更しました'
             res.redirect('/user/changePass');
         });
     })
