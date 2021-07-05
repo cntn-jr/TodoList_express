@@ -31,7 +31,7 @@
         <table class='table mt-5'>
             <thead class='thead-light'>
                 <tr>
-                    <th>タイトル</th><th>プライオリティ</th><th>期日</th>
+                    <th>タイトル</th><th>プライオリティ</th><th>期日</th><th></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +41,7 @@
                         <td><%= todo.title %></td>
                         <td><%= todo.priority %></td>
                         <td><%= todoDueList[i] %></td>
+                        <td><a href='/todo/<%= todo.id %>'>詳細</a></td>
                     </tr>
                 <% } %>
             </tbody>

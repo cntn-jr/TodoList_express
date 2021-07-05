@@ -51,4 +51,35 @@ router.post('/add', authMiddleware, (req, res, next) => {
         });
 })
 
+router.get('/:id', authMiddleware, (req, res, next) => {
+    db.Todo.findOne({where:{id:req.params.id}})
+    .then(todo => {
+        const dueDate = todo.dueDate.getFullYear() + '-' + ("0"+(todo.dueDate.getMonth() + 1)).slice(-2) + '-' + ("0"+(todo.dueDate.getDate() + 1)).slice(-2);
+        const checked = {
+            high: '',
+            middle: '',
+            low: '',
+        };
+        switch(todo.priority){
+            case 'high':
+                checked.high = 'checked';
+                break;
+            case 'middle':
+                checked.middle = 'checked';
+                break;
+            case 'low':
+                checked.low = 'checked';
+                break;
+        }
+        const data = {
+            title: 'test',
+            todo: todo,
+            dueDate: dueDate,
+            user_name: req.user.name,
+            checked: checked,
+        }
+        res.render('todo/detail', data);
+    });
+})
+
 module.exports = router;
