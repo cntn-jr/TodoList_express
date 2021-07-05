@@ -82,4 +82,16 @@ router.get('/:id', authMiddleware, (req, res, next) => {
     });
 })
 
+router.post('/:id/update', (req, res, next) => {
+    db.Todo.findByPk(req.params.id).then(todo => {
+        todo.title = req.body.title;
+        todo.memo = req.body.memo;
+        todo.priority = req.body.priority;
+        todo.dueDate = new Date(req.body.dueDate);
+        todo.save().then( () => {
+            res.redirect('/todo/'+req.params.id);
+        });
+    })
+});
+
 module.exports = router;
