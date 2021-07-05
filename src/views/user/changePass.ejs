@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/todo">TodoList</a>
+        <div class='text-center'>
+            <span class='mx-3'><%= user_name %></span>
+            <a class='text-secondary mx-3' href='/logout'>Log out</a>
+        </div>
+    </nav>
+    <div class="container mt-4" role="main">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/todo">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/todo/add">Add</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/user">User</a>
+            </li>
+        </ul>
+
+        <form action="/user/changePass/update" method="post" class='mt-5 col-5 mx-auto'>
+            <div class='text-danger text-center my-5'>
+                <p><%= errorMessage %></p>
+            </div>
+            <div class='text-success text-center my-5'>
+                <p><%= successMessage %></p>
+            </div>
+            <div class="form-group">
+                <label for="email">CURRENT PASSWORD</label>
+                <input type="password" class="form-control" name='passCurrent'>
+            </div>
+            <div class="form-group">
+                <label for="email">NEW PASSWORD</label>
+                <input type="password" class="form-control" name='passNew'>
+            </div>
+            <div class="form-group">
+                <label for="email">NEW PASSWORD (CONFIRM)</label>
+                <input type="password" class="form-control" name='passConfirm'>
+            </div>
+            <div class='text-right'>
+                <button type="submit" class="btn btn-info m-2">Update</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
