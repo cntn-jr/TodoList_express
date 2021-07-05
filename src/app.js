@@ -6,7 +6,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
 const todoRouter = require('./routes/todo');
 
@@ -42,7 +41,6 @@ app.use(passport.session({
 }));
 
 app.use('/', homeRouter);
-app.use('/home', homeRouter);
 app.use('/signup', signupRouter)
 app.use('/todo', todoRouter);
 
@@ -60,7 +58,7 @@ app.post('/login',
       session: true,
     }),
     (req, res)=>{
-      res.redirect('/home');
+      res.redirect('/todo');
     }
 );
 
