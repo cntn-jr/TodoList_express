@@ -15,7 +15,19 @@
             <a class='text-secondary mx-3' href='/logout'>Log out</a>
         </div>
     </nav>
-    <div class='container' role='main'>
+    <div class='container mt-4' role='main'>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/todo">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/todo/add">Add</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">User</a>
+            </li>
+        </ul>
+
         <form action="/todo/add" method="post" class='mt-5 col-5 mx-auto'>
             <div class="form-group">
                 <label for="title">Title</label>
