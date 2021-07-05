@@ -47,7 +47,7 @@ router.post('/add', authMiddleware, (req, res, next) => {
             priority: req.body.priority,
             user_id: req.user.id,
         })).then( todo => {
-            res.redirect('/home');
+            res.redirect('/todo');
         });
 })
 
