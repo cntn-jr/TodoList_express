@@ -8,6 +8,7 @@ const logger = require('morgan');
 
 const homeRouter = require('./routes/home');
 const signupRouter = require('./routes/signup');
+const todoRouter = require('./routes/todo');
 
 const passport = require('passport');
 const bcrypt = require('bcrypt');
@@ -43,6 +44,7 @@ app.use(passport.session({
 app.use('/', homeRouter);
 app.use('/home', homeRouter);
 app.use('/signup', signupRouter)
+app.use('/todo', todoRouter);
 
 app.get('/login', (req, res, next) => {
   const user = '';
