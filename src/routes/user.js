@@ -19,6 +19,7 @@ const authMiddleware = (req, res, next) => {
 /* GET users listing. */
 router.get('/', authMiddleware, (req, res, next) => {
     db.Users.findByPk(req.user.id).then( user => {
+        req.user = user;
         const data = {
             title: 'test',
             user: user,

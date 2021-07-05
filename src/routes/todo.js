@@ -15,6 +15,8 @@ const authMiddleware = (req, res, next) => {
 
 /* GET users listing. */
 router.get('/', authMiddleware, (req, res, next) => {
+    req.session.error = null;
+    req.session.success = null;
     db.Todo.findAll({where:{user_id:req.user.id}}).then(todos => {
       const todoDueList = [];
       for(let i in todos){
@@ -77,6 +79,7 @@ router.get('/:id', authMiddleware, (req, res, next) => {
             dueDate: dueDate,
             user_name: req.user.name,
             checked: checked,
+            errorMessage: req.session.error,
         }
         res.render('todo/detail', data);
     });
@@ -89,6 +92,10 @@ router.post('/:id/update', (req, res, next) => {
         todo.priority = req.body.priority;
         todo.dueDate = new Date(req.body.dueDate);
         todo.save().then( () => {
+            res.session.error = null;
+            res.redirect('/todo/'+req.params.id);
+        }).catch( err => {
+            req.session.error = err;
             res.redirect('/todo/'+req.params.id);
         });
     })

@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+textarea{
+  resize: none;
+}
+
 .backBlack{
   z-index: 2;
   width: 100%;

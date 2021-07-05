@@ -16,11 +16,41 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Todo.init({
-    title: DataTypes.STRING,
-    memo: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: '入力項目が正しくありません'
+        },
+        len: {
+          args: [0,30],
+          msg: '文字数は、３０文字以内です'
+        }
+      }
+    },
+    memo: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [0,100],
+          msg: '文字数は、１００文字以内です'
+        }
+
+      }
+    },
     user_id: DataTypes.INTEGER,
-    priority: DataTypes.STRING,
-    dueDate: DataTypes.DATE,
+    priority: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      }
+    },
+    dueDate: {
+      type: DataTypes.DATE,
+      validate: {
+        notEmpty: true,
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo',
