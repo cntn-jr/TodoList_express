@@ -30,6 +30,13 @@
         </ul>
 
         <form action="/user/update" method="post" class='mt-5 col-5 mx-auto'>
+            <div class='text-danger text-center my-5'>
+                <% if(errorMessage !== null){ %>
+                    <% for(let i in errorMessage.errors){ %>
+                        <p><%= errorMessage.errors[i].message %></p>
+                    <% } %>
+                <% } %>
+            </div>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name='name' value='<%= user.name %>'>
