@@ -29,24 +29,29 @@
             </li>
         </ul>
 
-        <table class='table mt-5'>
-            <thead class='thead-light'>
-                <tr>
-                    <th>タイトル</th><th>プライオリティ</th><th>期日</th><th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for(let i in todos){ %>
+        <form action='/todo/doneUpdate' method='post'>
+            <table class='table mt-5 text-center'>
+                <thead class='thead-light'>
                     <tr>
-                        <% let todo = todos[i] %>
-                        <td><%= todo.title %></td>
-                        <td><%= todo.priority %></td>
-                        <td><%= todoDueList[i] %></td>
-                        <td><a href='/todo/<%= todo.id %>'>詳細</a></td>
+                        <th>完了</th><th>タイトル</th><th>プライオリティ</th><th>期日</th><th></th>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% for(let i in todos){ %>
+                        <tr class='alert alert-<%=priorityColorList[i]%>'>
+                            <% let todo = todos[i] %>
+                            <td><input type="checkbox" name="done" value='<%=todos[i].id%>'></td>
+                            <td><%= todo.title %></td>
+                            <td><%= todo.priority %></td>
+                            <td><%= todoDueList[i] %></td>
+                            <td><a href='/todo/<%= todo.id %>' class='btn btn-primary btn-sm'>詳細</a></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <button class='btn btn-info' type='submit'>Update</button>
+        </form>
+
     </div>
 
 </body>

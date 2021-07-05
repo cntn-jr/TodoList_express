@@ -20,17 +20,34 @@ router.get('/', authMiddleware, (req, res, next) => {
     req.session.errorUpdateUser = null;
     req.session.errorPass = null;
     req.session.successPass = null;
-    db.Todo.findAll({where:{user_id:req.user.id}}).then(todos => {
+    db.Todo.findAll({where:{user_id:req.user.id, doneTodo:false}}).then(todos => {
       const todoDueList = [];
+      const priorityColorList = [];
       for(let i in todos){
         let dueDate = todos[i].dueDate;
-        todoDueList[i] = dueDate.getFullYear() + '年' + dueDate.getMonth() + '月' + dueDate.getDate() + '日';
+        todoDueList[i] = dueDate.getFullYear() + '年' + (dueDate.getMonth() + 1) + '月' + dueDate.getDate() + '日';
+        let priority = todos[i].priority;
+        switch(priority){
+            case 'high':
+                priorityColorList[i] = 'warning';
+                break;
+            case 'middle':
+                priorityColorList[i] = 'success';
+                break;
+            case 'low':
+                priorityColorList[i] = 'info';
+                break;
+        }
+        if(!todos[i].done && (new Date() > new Date(todos[i].dueDate))){
+            priorityColorList[i] = 'danger';
+        }
       }
       const data = {
         title: 'test',
         user_name: req.user.name,
         todos: todos,
         todoDueList: todoDueList,
+        priorityColorList: priorityColorList,
       }
       res.render('todo/index', data);
     })
@@ -123,6 +140,21 @@ router.post('/:id/delete', (req, res, next) => {
             res.redirect('/todo');
         })
     })
+})
+
+router.post('/doneUpdate',(req, res, next)=>{
+    const doneList = req.body.done;
+        db.Todo.findAll({
+            where:{
+                id:doneList
+            }
+        }).then(todos=>{
+            for(let i in todos){
+                todos[i].doneTodo = true;
+                todos[i].save();
+            }
+        })
+    res.redirect('/todo');
 })
 
 module.exports = router;
