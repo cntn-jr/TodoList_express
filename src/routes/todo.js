@@ -56,7 +56,7 @@ router.get('/', authMiddleware, (req, res, next) => {
             priorityColorList[i] = 'danger';
         }
         if(todos[i].doneTodo){
-            priorityColorList[i] = 'secondary'
+            priorityColorList[i] = 'light'
         }
         if(todos[i].doneTodo){
             doneDisabledList[i] = 'disabled';
