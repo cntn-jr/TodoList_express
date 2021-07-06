@@ -1,6 +1,11 @@
+html{
+  height: 100%;
+}
+
 body {
   /* padding: 50px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
 }
 
 a {
@@ -35,4 +40,12 @@ textarea{
   position: fixed;
   border-radius: 10px;
   margin: 20% 30%;
+}
+
+#errorContainer{
+  height: 100%;
+}
+
+#errorBox{
+  height: 70%;
 }
