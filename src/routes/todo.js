@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models');
+const todo = require('../models/todo');
 
 const now = new Date();
 now.setHours( now.getHours + 9 );
@@ -20,9 +21,22 @@ router.get('/', authMiddleware, (req, res, next) => {
     req.session.errorUpdateUser = null;
     req.session.errorPass = null;
     req.session.successPass = null;
-    db.Todo.findAll({where:{user_id:req.user.id, doneTodo:false}}).then(todos => {
+    let filterKey = req.query.filterKey;
+    let todosFiltered;
+    switch(filterKey){
+        case 'finished':
+            todosFiltered = db.Todo.findAll({where:{user_id: req.user.id, doneTodo: true}});
+            break;
+        case 'all':
+            todosFiltered = db.Todo.findAll({where:{user_id: req.user.id}});
+            break;
+        default:
+            todosFiltered = db.Todo.findAll({where:{user_id: req.user.id, doneTodo: false}});
+    }
+    todosFiltered.then(todos => {
       const todoDueList = [];
       const priorityColorList = [];
+      const doneDisabledList = [];
       for(let i in todos){
         let dueDate = todos[i].dueDate;
         todoDueList[i] = dueDate.getFullYear() + '年' + (dueDate.getMonth() + 1) + '月' + dueDate.getDate() + '日';
@@ -41,6 +55,11 @@ router.get('/', authMiddleware, (req, res, next) => {
         if(!todos[i].done && (new Date() > new Date(todos[i].dueDate))){
             priorityColorList[i] = 'danger';
         }
+        if(todos[i].doneTodo){
+            doneDisabledList[i] = 'disabled';
+        }else{
+            doneDisabledList[i] = '';
+        }
       }
       const data = {
         title: 'test',
@@ -48,6 +67,7 @@ router.get('/', authMiddleware, (req, res, next) => {
         todos: todos,
         todoDueList: todoDueList,
         priorityColorList: priorityColorList,
+        doneDisabledList: doneDisabledList,
       }
       res.render('todo/index', data);
     })
