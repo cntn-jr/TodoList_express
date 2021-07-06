@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const bcrypt = require('bcrypt');
+const { session } = require('passport');
 
 router.get('/', (req, res, next)=>{
     res.render('signup')
@@ -25,7 +26,9 @@ router.post('/', (req, res, next)=>{
         }) )
         .then( user => {
             res.redirect('/login');
-        } )
+        } ).catch(err=>{
+            res.redirect('/signup');
+        })
     }
 })
 
