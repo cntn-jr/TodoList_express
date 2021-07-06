@@ -52,8 +52,11 @@ router.get('/', authMiddleware, (req, res, next) => {
                 priorityColorList[i] = 'info';
                 break;
         }
-        if(!todos[i].done && (new Date() > new Date(todos[i].dueDate))){
+        if(!todos[i].doneTodo && (new Date() > new Date(todos[i].dueDate))){
             priorityColorList[i] = 'danger';
+        }
+        if(todos[i].doneTodo){
+            priorityColorList[i] = 'secondary'
         }
         if(todos[i].doneTodo){
             doneDisabledList[i] = 'disabled';
