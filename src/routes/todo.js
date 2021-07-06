@@ -106,12 +106,17 @@ router.get('/:id', authMiddleware, (req, res, next) => {
                 checked.low = 'checked';
                 break;
         }
+        let doneChecked = ''
+        if(todo.doneTodo){
+            doneChecked = 'checked';
+        }
         const data = {
             title: 'test',
             todo: todo,
             dueDate: dueDate,
             user_name: req.user.name,
             checked: checked,
+            doneChecked: doneChecked,
             errorMessage: req.session.errorUpdateTodo,
         }
         res.render('todo/detail', data);
@@ -119,11 +124,17 @@ router.get('/:id', authMiddleware, (req, res, next) => {
 })
 
 router.post('/:id/update', (req, res, next) => {
+    console.log(req.body.doneTodo);
     db.Todo.findByPk(req.params.id).then(todo => {
         todo.title = req.body.title;
         todo.memo = req.body.memo;
         todo.priority = req.body.priority;
         todo.dueDate = new Date(req.body.dueDate);
+        if(req.body.doneTodo){
+            todo.doneTodo = true;
+        }else{
+            todo.doneTodo = false;
+        }
         todo.save().then( () => {
             res.session.errorUpdateTodo = null;
             res.redirect('/todo/'+req.params.id);
