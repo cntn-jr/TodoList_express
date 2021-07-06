@@ -25,7 +25,6 @@ router.get('/', authMiddleware, (req, res, next) => {
     db.Users.findByPk(req.user.id).then( user => {
         req.user = user;
         const data = {
-            title: 'test',
             user: user,
             user_name: req.user.name,
             errorMessage: req.session.errorUpdateUser,
@@ -54,7 +53,6 @@ router.get('/changePass', authMiddleware, (req, res, next) => {
     req.session.errorUpdateTodo = null;
     req.session.errorUpdateUser = null;
     const data = {
-        title: 'test',
         user_name: req.user.name,
         errorMessage: req.session.errorPass,
         successMessage: req.session.successPass,

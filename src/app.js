@@ -52,7 +52,7 @@ app.get('/login', (req, res, next) => {
   if(req.user){
     user = req.user;
   }
-  res.render('login', { title: 'Express' , message: user});
+  res.render('login');
 })
 
 app.post('/login',

@@ -65,7 +65,6 @@ router.get('/', authMiddleware, (req, res, next) => {
         }
       }
       const data = {
-        title: 'test',
         user_name: req.user.name,
         todos: todos,
         todoDueList: todoDueList,
@@ -134,7 +133,6 @@ router.get('/:id', authMiddleware, (req, res, next) => {
             doneChecked = 'checked';
         }
         const data = {
-            title: 'test',
             todo: todo,
             dueDate: dueDate,
             user_name: req.user.name,
